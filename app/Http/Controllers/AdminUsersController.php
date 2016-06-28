@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Http\Requests\UsersRequest;
 
+use App\Http\Requests\UsersEditRequest;
+
 use App\User;
 
 use App\Role;
@@ -48,8 +50,11 @@ class AdminUsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
-		$input = $request->all();
-		
+		if(trim($request->password == ''){
+			$input = $request->except('password');
+		}else{
+			$input = $request->all();
+		}
 		if($file = $request->file('photo_id')){
 			$name = time() . $file->getClientOriginalName();
 			$file->move('images', $name);
@@ -83,7 +88,11 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        //
+		$user = User::findOrFail($id);
+		$status = $user->is_active == 1 ? 'Active' : 'Not Active';
+        $roles = Role::lists('name','id')->all();
+		return view('admin.users.edit', compact('user','roles','status'));
+
     }
 
     /**
@@ -93,9 +102,26 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersEditRequest $request, $id)
     {
-        //
+		$user = User::findOrFail($id);
+		
+		if(trim($request->password == ''){
+			$input = $request->except('password');
+		}else{
+			$input = $request->all();
+		}
+		   
+		if($file = $request->file('photo_id')){
+			$name = time() . $file->getClientOriginalName();
+			$file->move('images', $name);
+			$photo = Photo::create(['path' => $name]);
+			$input['photo_id'] = $photo->id;
+		}
+		$input['password'] = bcrypt($request->password);
+		$user->update($input);
+		return Redirect::to('/admin/users');
+
     }
 
     /**

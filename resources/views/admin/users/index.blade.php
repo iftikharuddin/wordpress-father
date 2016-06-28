@@ -22,6 +22,8 @@
                 
 					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">ID</th>
 					
+					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">Photo</th>
+					
 					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">Name</th>
 
 					<th class="sorting_desc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" aria-sort="descending" style="width: 224px;">Email</th>
@@ -39,8 +41,9 @@
                 @if($users)
                 	@foreach($users as $user)
 					<tr role="row" class="odd">
-					  <td class="">{!! $user->id !!}</td>
-					  <td class="sorting_1">{!! $user->name !!}</td>
+					  <td>{!! $user->id !!}</td>
+					  <td><img height="50" src="{!! $user->photo ? $user->photo->path : 'http://placehold.it/50x50' !!}" class="img-responsive"></td>
+					  <td><a href="{!! route('admin.users.edit', $user->id) !!}">{!! $user->name !!}</a></td>
 					  <td>{!! $user->email !!}</td>
 					  <td>{!! $user->role->name !!}</td>
 					  <td>{!! $user->is_active == 1 ? 'Active' : 'Not Active' !!}</td>
