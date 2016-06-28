@@ -76,14 +76,14 @@
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('photo_id') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">Upload Image</label>
 
                             <div class="col-md-6">
-								{!! Form::file('file', null) !!}
-                                @if ($errors->has('file'))
+								{!! Form::file('photo_id', null) !!}
+                                @if ($errors->has('photo_id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('file') }}</strong>
+                                        <strong>{{ $errors->first('photo_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
