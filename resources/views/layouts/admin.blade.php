@@ -137,7 +137,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">John Doe</span>
+              <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -145,7 +145,7 @@
                 <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  John Doe - Web Developer
+                  {{ Auth::user()->name }} - Web Developer
                   <small>Member since Nov. 2016</small>
                 </p>
               </li>
@@ -169,7 +169,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -195,7 +195,7 @@
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>John Doe</p>
+          <p>{{ Auth::user()->name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -346,8 +346,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Boxed Layout
-        <small>Blank example to the boxed layout</small>
+        @yield('title')
+        <small>@yield('description')</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -359,15 +359,14 @@
     <!-- Main content -->
     <section class="content">
       <div class="callout callout-info">
-        <h4>Tip!</h4>
+        <h4>@yield('tiptitle')</h4>
 
-        <p>Add the layout-boxed class to the body tag to get this layout. The boxed layout is helpful when working on
-          large screens because it prevents the site from stretching very wide.</p>
+        <p>@yield('tipdescription')</p>
       </div>
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+          <h3 class="box-title">@yield('title')</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -381,7 +380,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          Footer
+          @yield('contentfooter')
         </div>
         <!-- /.box-footer-->
       </div>
