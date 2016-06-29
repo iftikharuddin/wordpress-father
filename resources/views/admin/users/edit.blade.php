@@ -131,6 +131,7 @@
                     </div>
 				  </div>
 		   </form>
+		   		  
 	  </div>
 	@section('contentfooter')
 		Updating User data 
