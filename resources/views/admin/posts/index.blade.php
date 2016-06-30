@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-   Users
+   Posts
 @endsection
 
 	@section('tiptitle')
@@ -8,11 +8,11 @@
 	@endsection
 
 	@section('tipdescription')
-		Don't fuck with me!
+		Tip Description
 	@endsection
 	
 	@section('description')
-	    this is a cool description Olamba
+	    All posts
 	@endsection
 
 @section('content')
@@ -28,15 +28,16 @@
                 
 					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">ID</th>
 					
-					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">Photo</th>
+					<th class="sorting_desc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" aria-sort="descending" style="width: 224px;">Photo</th>
+										
+					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">Owner</th>
 					
-					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">Name</th>
+					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 181px;">Category</th>
 
-					<th class="sorting_desc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" aria-sort="descending" style="width: 224px;">Email</th>
 					
-					<th class="sorting_desc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" aria-sort="descending" style="width: 224px;">Role</th>
+					<th class="sorting_desc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" aria-sort="descending" style="width: 224px;">Title</th>
 					
-					<th class="sorting_desc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" aria-sort="descending" style="width: 224px;">Status</th>
+					<th class="sorting_desc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" aria-sort="descending" style="width: 224px;">Body</th>
 
 					<th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 197px;">Created at</th>
 
@@ -46,20 +47,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if($users)
-                	@foreach($users as $user)
+                @if($posts)
+                	@foreach($posts as $post)
 					<tr role="row" class="odd">
-					  <td>{!! $user->id !!}</td>
-					  <td><img height="50" src="{!! $user->photo ? $user->photo->path : 'http://placehold.it/50x50' !!}" class="img-responsive"></td>
-					  <td><a href="{!! route('admin.users.edit', $user->id) !!}">{!! $user->name !!}</a></td>
-					  <td>{!! $user->email !!}</td>
-					  <td>{!! $user->role->name !!}</td>
-					  <td>{!! $user->is_active == 1 ? 'Active' : 'Not Active' !!}</td>
-					  <td>{!! $user->created_at->diffForHumans() !!}</td>
-					  <td>{!! $user->updated_at->diffForHumans() !!}</td>
+					  <td>{!! $post->id !!}</td>
+					  <td><img height="50" src="{!! $post->photo ? $post->photo->path : 'http://www.placehold.it/50x50'!!}"></a></td>
+					  <td>{!! $post->user->name !!}</td>
+					  <td>{!! $post->category_id !!}</td>
+					  <td>{!! $post->title !!}</td>
+					  <td>{!! $post->body !!}</td>
+					  <td>{!! $post->created_at->diffForHumans() !!}</td>
+					  <td>{!! $post->updated_at->diffForHumans() !!}</td>
 					  <td>
-						{!! Form::open(array('url' => "/admin/users/$user->id" ,  'method' => 'delete')) !!}
-						{!! Form::hidden('id', $user->id) !!}
+						{!! Form::open(array('url' => "/admin/users/$post->id" ,  'method' => 'delete')) !!}
+						{!! Form::hidden('id', $post->id) !!}
 						<button type="submit" class="btn btn-danger glyphicon glyphicon-remove"></button>
 						{!! Form::close() !!}
 					  </td>
