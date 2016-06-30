@@ -39,7 +39,7 @@
                             <label class="col-md-4 control-label">Category</label>
 
                             <div class="col-md-6">
-                                {!! Form::select('category_id',array(1 => 'PHP', 0 => 'Java'), null, ['class' => 'form-control'] ) !!}
+                                {!! Form::select('category_id', ['' => 'Choose Category'] + $categories, null, ['class' => 'form-control'] ) !!}
                                 @if ($errors->has('category_id'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('category_id') }}</strong>
